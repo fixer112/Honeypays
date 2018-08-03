@@ -2,7 +2,7 @@
   "name": "honeypays",
   "version": "1.0.0",
   "description": "Honeypays mobile app for mcredit and empower.",
-  "author": "Abubakar Lawal <abula3003@gmail.com>",
+  "author": "Altechtic Solutions",
   "license": "MIT",
   "scripts": {
     "build": "webpack --env.tnsAction build",
