@@ -11,20 +11,24 @@
 				<!--  </StackLayout> -->
 			</ActionBar>
 			<FlexboxLayout class="page">
+
+				<ActivityIndicator color="#8A2BE2" :busy="busy"></ActivityIndicator>
+				
 				<TabView androidTabsPosition="bottom" class="tab-view">
 					<TabViewItem title="Home" iconSource="~/icons/home.png">
 
 						<!-- <Label text="user" @tap="logout"/> -->
 						<!-- <ScrollView> -->
+								<ScrollView>
 							<StackLayout>
+
 								<StackLayout class="user-header">
 									<Image :src="'https://mcredit.honeypays.com.ng/public/'+user.passport" class="user-avatar" />
 									<Label class="user-header-text var" :text="user.name" />
 									<Label class="user-header-footnote var" :text="user.username" />
 								</StackLayout>
 
-								<ScrollView>
-									<StackLayout>
+									
 										<StackLayout margin="5" borderRadius="10">
 											<StackLayout backgroundColor="#fafafa" padding="10">
 												<Label text="Savings Balance" class="name"></Label>
@@ -67,7 +71,7 @@
 											</StackLayout>
 										</StackLayout>
 
-										<StackLayout> 
+										
 											<v-template if="loan!='' && loan_pending !=''">
 											<StackLayout margin="5" borderRadius="10">
 												<StackLayout backgroundColor="#fafafa" padding="10">
@@ -104,10 +108,10 @@
 												</StackLayout>
 											</StackLayout>
 										</v-template>
-										</StackLayout>
-									</StackLayout>
-								</ScrollView>
+
+
 							</StackLayout>
+								</ScrollView>
 							<!-- </ScrollView> -->
 
 
@@ -381,6 +385,7 @@ mounted(){
 		this.due = response.data.due;
 		this.historys =  response.data.historys;
 		this.loan_pending = response.data.loan_pending;
+		//alert('loaded');
 
 
   	
@@ -391,6 +396,7 @@ mounted(){
 	.catch((error)=>{
 		console.log(error.response.data);
 		this.danger('Error(s)', error);
+		//alert('not loaded');
 	})
 }
 };
