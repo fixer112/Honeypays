@@ -13,12 +13,13 @@ import {exit} from 'nativescript-exit';
 import axios from 'axios';
 import { isAndroid } from 'tns-core-modules/platform'
 
-/*if (isAndroid) {
+if (isAndroid) {
   application.android.on('activityBackPressed', args => {
     console.log('back pressed');
+    args.cancel = true;
     //exit();
   })
-}*/
+}
 
  if (application.android) {
 
