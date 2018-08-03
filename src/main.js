@@ -17,7 +17,7 @@ if (isAndroid) {
   application.android.on('activityBackPressed', args => {
     console.log('back pressed');
     args.cancel = true;
-    //exit();
+    ///exit();
   })
 }
 
