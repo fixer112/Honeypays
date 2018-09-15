@@ -5,6 +5,7 @@
 				<Image class="logo img-rounded" src="~/images/honeypays.png"/>
 				<Label class="header" text="MCREDIT" />
 
+				
 				<StackLayout class="input-field" marginBottom="25">
 					<TextField class="input" hint="Account Number" keyboardType="number" autocorrect="false" autocapitalizationType="none" returnKeyType="next" fontSize="18" v-model="acc_no" :isEnabled="!busy"  paddingTop="10" paddingBottom="10"/>
 					<StackLayout class="hr-light" />
@@ -20,6 +21,9 @@
 
 				<Button text="Log In" @tap="submit" class="btn btn-primary m-t-20" :isEnabled="!busy"/>
 				<!-- <Label text="Forgot your password?" class="login-label" @tap="test" /> -->
+      			<!-- <StackLayout class="sign-up-label"> -->
+      			<Label text="Tap to swich to Empower" class="login-label bold" @tap="empower" :isEnabled="!busy"/>
+      			<!-- </StackLayout> -->
 			</StackLayout>
 
         <!-- <Label class="login-label sign-up-label" @tap="test">
@@ -29,10 +33,6 @@
           </FormattedString>
       </Label> -->
 
-      <StackLayout class="sign-up-label">
-
-      	<Label text="Tap to swich to Empower" class="login-label bold" @tap="empower" :isEnabled="!busy"/>
-      </StackLayout>
   </FlexboxLayout>
 </Page>
 </template>
@@ -124,6 +124,15 @@ export default {
 </script>
 <style scoped>
 
+.form{
+	background-color: #D9ffffff;
+	border-radius: 10;
+	/*overflow: hidden;*/
+	padding-left: 30;
+	padding-right: 30;
+	margin-top: 30;
+	margin-bottom:30;
+}
 .input {
   font-size: 18;
   placeholder-color: #3f4040;

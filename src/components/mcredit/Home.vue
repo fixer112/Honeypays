@@ -160,7 +160,7 @@
 			</TabViewItem>
 			<TabViewItem title="Withdraw" iconSource="res://baseline_money_white_24">
 				<FlexboxLayout class="page">
-					<StackLayout class="form">
+					<StackLayout class="empower">
 
 						<StackLayout class="input-field" marginBottom="0">
 							<TextField class="input" hint="Amount" keyboardType="number" autocorrect="false" autocapitalizationType="none" returnKeyType="done" fontSize="18" v-model="amount" :isEnabled="!busy"/>
@@ -249,7 +249,7 @@
 			</TabViewItem>
 			<TabViewItem title="Password" iconSource="res://baseline_lock_white_24">
 				<FlexboxLayout class="page">
-					<StackLayout class="form">
+					<StackLayout class="empower">
 
 						<StackLayout class="input-field" marginBottom="15">
 							<TextField class="input" hint="Old Password" secure="true" autocorrect="false" autocapitalizationType="none" returnKeyType="next" fontSize="18" v-model="old_pass" :isEnabled="!busy"/>

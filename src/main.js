@@ -14,6 +14,7 @@ import E_Home from './components/empower/Home';
 import E_History from './components/empower/History';
 import E_Edit from './components/empower/Edit';
 import E_Invest from './components/empower/Invest';
+import E_Cal from './components/empower/Calculator';
 import E_Contact from './components/empower/Contact';
 import E_Referal from './components/empower/Referal';
 import E_bar from './components/empower/Actionbar';
@@ -48,7 +49,7 @@ application.on(application.suspendEvent, (args) => {
 application.on(application.resumeEvent, (args) => {
 
         resume = new Date().getTime();
-        if (suspend > 0 && (resume-suspend)/(1000*60) > 5) {
+        if (suspend > 0 && (resume-suspend)/(1000*60) > 10) {
           appSettings.setString("token", '');
           console.log('timeout');
           alert('Timeout, please re-login')
@@ -107,6 +108,9 @@ methods:{
       break;
       case 'referal':
       GO = E_Referal;
+      break;
+      case 'cal':
+      GO = E_Cal;
       break;
     }
 
@@ -187,7 +191,7 @@ logout(){
 check_tym(){
     var start = appSettings.getNumber("start");
     var now = new Date().getTime();
-    if (start > 0 && (now - start)/(1000*60)>5) {
+    if (start > 0 && (now - start)/(1000*60) > 10) {
       appSettings.setNumber("start", 0);
       alert('Session timeout, please re-login');
         this.$navigateTo(M_Login,{

@@ -10,6 +10,7 @@
 							<Label class="header" text="EMPOWER" />
 						</StackLayout>
 						<!-- <StackLayout> -->
+							<FilterableListpicker ref="list" blur="dark" hintText="Type to filter..." :source="list" @itemTapped="Tapped($event)"></FilterableListpicker>
 							<StackLayout :height="height">
 								<ScrollView>
 									<StackLayout>
@@ -98,33 +99,33 @@
       	<!-- </StackLayout>
       	-->
 
-      	<FilterableListpicker ref="list" blur="dark" hintText="Type to filter..." :source="list" @itemTapped="Tapped($event)"></FilterableListpicker>
+      	
 
-      	<StackLayout>
-      		<StackLayout>
+      	<!-- <StackLayout> -->
+      		<!-- <StackLayout> -->
 
       			<Button :text="isLoggingIn ? 'Log In' : 'Sign Up'" @tap="submit" class="btn btn-primary m-t-20" :isEnabled="!busy"/>
       			<Label v-show="isLoggingIn" text="Forgot your password?" class="login-label" @tap="forgotPassword" :isEnabled="!busy"/>
-      		</StackLayout>
+      		<!-- </StackLayout> -->
 
 
-      		<StackLayout>
+      		<!-- <StackLayout> -->
       			<Label class="login-label sign-up-label" @tap="toggleForm" :isEnabled="!busy" >
       				<FormattedString>
       					<Span :text="isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'" />
       					<Span :text="isLoggingIn ? 'Sign up' : ''" class="bold" />
       				</FormattedString>
       			</Label>
-      		</StackLayout>
+      		<!-- </StackLayout> -->
 
 
 
-      		<StackLayout class="sign-up-label" marginTop="30">
+      		<!-- <StackLayout class="sign-up-label" marginTop="30"> -->
 
       			<Label text="Tap to swich to Mcredit" class="login-label bold" @tap="mcredit" :isEnabled="!busy"/>
-      		</StackLayout>
+      		<!-- </StackLayout> -->
 
-      	</StackLayout>
+      	<!-- </StackLayout> -->
 
       </StackLayout>
       <!-- </ScrollView> -->
@@ -188,7 +189,8 @@
 				{"title": "INTERNATIONAL PASSPORT"},
 				{"title": "DRIVERS LICENSE"},
 				{"title": "NATIONAL ID"},
-				{"title": "VOTERS ID"}
+				{"title": "VOTERS ID"},
+				{"title": "BVN PRINTOUT"}
 				],
 				list:[],
 				addr:"",
@@ -273,7 +275,7 @@ toggleForm(){
 	if (this.isLoggingIn) {
 		this.height = 'auto';
 	}else{
-		this.height = '280';
+		this.height = '200';
 	}
 },
 mcredit(){
@@ -451,7 +453,15 @@ mounted(){
 };
 </script>
 <style scoped>
-
+.form{
+	background: #D9ffffff;
+	border-radius: 10;
+	/*overflow: hidden;*/
+	padding-left: 30;
+	padding-right: 30;
+	margin-top: 30;
+	margin-bottom:30;
+}
 .input {
 	font-size: 18;
 	placeholder-color: #3f4040;

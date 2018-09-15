@@ -46,6 +46,13 @@
 
             <StackLayout class="hr-light"></StackLayout>
 
+            <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Calculator" @tap="onNavigationItemTap('cal')">
+              <Image src="~/icons/cal.png" class="sidedrawer-icon"/>
+              <Label row="0" col="1" text="Calculator" class="m-l-20 sidedrawer-item" />
+            </GridLayout>
+
+            <StackLayout class="hr-light"></StackLayout>
+
             <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Contact" @tap="onNavigationItemTap('contact')">
               <Image src="~/icons/contact.png" class="sidedrawer-icon"/>
               <Label row="0" col="1" text="Contact" class="m-l-20 sidedrawer-item" />
@@ -225,7 +232,8 @@ export default {
       {"title": "INTERNATIONAL PASSPORT"},
       {"title": "DRIVERS LICENSE"},
       {"title": "NATIONAL ID"},
-      {"title": "VOTERS ID"}
+      {"title": "VOTERS ID"},
+      {"title": "BVN PRINTOUT"}
       ],
       list:[],
       addr:"",
@@ -315,6 +323,7 @@ export default {
         }
         if (this.send_img) {
           params.push({name:'identity', filename: this.img, mimeType: 'image/jpeg'});
+          console.log('true img')
         }
         var task = session.multipartUpload(params, request);
           //task = session.uploadFile(filePath, request);
@@ -362,7 +371,7 @@ export default {
               const android = selected.android;
               if (android) {
                 _this.img = selected.android.toString();
-                this.send_img = true;
+                _this.send_img = true;
 
               }else if (ios && ios.mediaType === PHAssetMediaType.Image) {
 

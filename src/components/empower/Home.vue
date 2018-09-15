@@ -48,6 +48,13 @@
 
           <StackLayout class="hr-light"></StackLayout>
 
+          <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Calculator" @tap="onNavigationItemTap('cal')">
+              <Image src="~/icons/cal.png" class="sidedrawer-icon"/>
+              <Label row="0" col="1" text="Calculator" class="m-l-20 sidedrawer-item" />
+            </GridLayout>
+
+            <StackLayout class="hr-light"></StackLayout>
+
           <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Contact" @tap="onNavigationItemTap('contact')">
             <Image src="~/icons/contact.png" class="sidedrawer-icon"/>
             <Label row="0" col="1" text="Contact" class="m-l-20 sidedrawer-item" />
