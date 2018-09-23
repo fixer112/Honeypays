@@ -3,7 +3,7 @@
 
     <ActionBar class="action-bar">
       <NavigationButton icon="res://baseline_menu_white_24" @tap="drawerTap"/>
-      <Image src="~/images/honey.png" width="200" height="40" />
+      <Label text="Edit Profile" style="text-align: center; font-weight: bold; color: white" />
       <ActionItem @tap="logout"
       ios.systemIcon="9" ios.position="left"
       android.systemIcon="ic_lock_power_off" android.position="actionBar" color="#fff"/>
@@ -56,6 +56,13 @@
             <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Contact" @tap="onNavigationItemTap('contact')">
               <Image src="~/icons/contact.png" class="sidedrawer-icon"/>
               <Label row="0" col="1" text="Contact" class="m-l-20 sidedrawer-item" />
+            </GridLayout>
+
+            <StackLayout class="hr-light"></StackLayout>
+
+            <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Refund" @tap="onNavigationItemTap('refund')">
+              <Image src="~/icons/refund.png" class="sidedrawer-icon"/>
+              <Label row="0" col="1" text="Refund" class="m-l-20 sidedrawer-item" />
             </GridLayout>
 
             <StackLayout class="hr-light"></StackLayout>
@@ -189,6 +196,7 @@
 <script>
 import axios from 'axios';
 import Login from './Login';
+import Land from '../LandPage';
 import * as imagepicker from "nativescript-imagepicker";
 import * as bghttp from "nativescript-background-http";
 import * as imagesource from 'image-source';
@@ -432,7 +440,7 @@ export default {
               this.hide();
               this.busy= false;
               console.log(response.data);
-              this.$navigateTo(Login,{
+              this.$navigateTo(Land,{
                 clearHistory:true,
               })
             })

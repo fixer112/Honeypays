@@ -1,6 +1,6 @@
 {
   "name": "honeypays",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Honeypays mobile app for mcredit and empower.",
   "author": "Altechtic Solutions",
   "license": "MIT",
@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "nativescript-background-http": "^3.3.0",
+    "nativescript-cardview": "^3.1.1",
     "nativescript-checkbox": "^3.0.3",
     "nativescript-exit": "^1.0.1",
     "nativescript-filter-select": "^1.2.9",

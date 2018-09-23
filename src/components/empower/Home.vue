@@ -62,6 +62,13 @@
 
           <StackLayout class="hr-light"></StackLayout>
 
+          <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Refund" @tap="onNavigationItemTap('refund')">
+              <Image src="~/icons/refund.png" class="sidedrawer-icon"/>
+              <Label row="0" col="1" text="Refund" class="m-l-20 sidedrawer-item" />
+            </GridLayout>
+
+            <StackLayout class="hr-light"></StackLayout>
+
           <GridLayout v-if="user.mentor!=''" columns="auto, *" class="sidedrawer-list-item" title="Referal" @tap="onNavigationItemTap('referal')">
             <Image src="~/icons/referal.png" class="sidedrawer-icon"/>
             <Label row="0" col="1" text="Referal" class="m-l-20 sidedrawer-item" />
@@ -199,10 +206,12 @@
 <script>
 import axios from 'axios';
 import Login from './Login';
+import Land from '../LandPage';
 import Vue from 'nativescript-vue';
   export default {
     data () {
       return {
+        mentor:"",
         user:"",
         all:"",
         tpr:"",
@@ -228,6 +237,7 @@ import Vue from 'nativescript-vue';
               this.ter =response.data.ter;
               console.log(response.data);
               Vue.prototype.$mentor = response.data.user.mentor;
+              this.mentor = this.$mentor;
               /*this.$navigateTo(Home,{
               clearHistory:true,
               //backstackVisible:false,
@@ -248,7 +258,7 @@ import Vue from 'nativescript-vue';
               this.hide();
               this.busy= false;
               console.log(response.data);
-              this.$navigateTo(Login,{
+              this.$navigateTo(Land,{
               clearHistory:true,
             })
             })

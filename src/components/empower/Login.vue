@@ -5,12 +5,15 @@
 				<!-- <ScrollView scrollBarIndicatorVisible="false"> -->
 					<StackLayout class="form">
 
+							<FilterableListpicker ref="list" blur="dark" hintText="Type to filter..." :source="list" @itemTapped="Tapped($event)"></FilterableListpicker>
 						<StackLayout>
 							<Image class="logo" src="~/images/honeypays.png" />
 							<Label class="header" text="EMPOWER" />
 						</StackLayout>
-						<!-- <StackLayout> -->
-							<FilterableListpicker ref="list" blur="dark" hintText="Type to filter..." :source="list" @itemTapped="Tapped($event)"></FilterableListpicker>
+						<StackLayout>
+							<ScrollView>
+
+
 							<StackLayout :height="height">
 								<ScrollView>
 									<StackLayout>
@@ -37,7 +40,7 @@
 										</StackLayout>
 
 										<StackLayout v-show="!isLoggingIn" class="input-field" marginBottom="25">
-											<TextField class="input" hint="*Mentor dafault 08172303502" keyboardType="number" autocorrect="false" autocapitalizationType="none" v-model="mentor" returnKeyType="done" fontSize="18" :isEnabled="!busy"/>
+											<TextField class="input" hint="Mentor dafault 08172303502" keyboardType="number" autocorrect="false" autocapitalizationType="none" v-model="mentor" returnKeyType="done" fontSize="16" :isEnabled="!busy"/>
 											<StackLayout class="hr-light" />
 										</StackLayout>
 
@@ -84,7 +87,7 @@
 											<!-- <FilterableListpicker ref="mode" blur="dark" hintText="Type to filter..." :source="mode_list" @itemTapped="modeTapped($event)"></FilterableListpicker> -->
 										</StackLayout>
 
-										<StackLayout v-show="!isLoggingIn" class="input-field" marginBottom="25">
+										<StackLayout v-show="!isLoggingIn" class="input-field" marginBottom="5">
 											<Image class="log" :src="img" style="width: 150; height: 100" ref="img" v-show="img!=''"/>
 											<TextField class="input" :hint="identity" editable="false" @tap="image" fontSize="18"/>
 											<StackLayout class="hr-light" />
@@ -96,15 +99,17 @@
 
 								</ScrollView>
 							</StackLayout>
-      	<!-- </StackLayout>
-      	-->
+						</ScrollView>
+      	 			</StackLayout>
+      	
 
       	
 
       	<!-- <StackLayout> -->
       		<!-- <StackLayout> -->
 
-      			<Button :text="isLoggingIn ? 'Log In' : 'Sign Up'" @tap="submit" class="btn btn-primary m-t-20" :isEnabled="!busy"/>
+      			<Button :text="isLoggingIn ? 'Log In' : 'Sign Up'" @tap="submit" class="btn btn-primary m-t-5" :isEnabled="!busy"/>
+
       			<Label v-show="isLoggingIn" text="Forgot your password?" class="login-label" @tap="forgotPassword" :isEnabled="!busy"/>
       		<!-- </StackLayout> -->
 
@@ -157,7 +162,7 @@
 				email:"",
 				password:"",
 				password_confirmation:"",
-				mentor:"08172303502",
+				mentor:"",
 				number:"",
 				acc_no:"",
 				acc_name:"",
@@ -206,6 +211,9 @@
 			};
 		},
 		methods:{
+			reset(){
+				/*this.name = this.email = this.password = this.password_confirmation = mentor = this.number = this.acc_name = this.acc_no = this.bank_name = this.addr = this.city = this.state = this.mode_id = this.img = this.type = "";*/
+			},
 			select(type) {
 		//this.list = [];
 		if (type == 'bank') {
@@ -291,7 +299,7 @@ submit(){
 	if (this.isLoggingIn) {
 		this.login();
 	}else {
-		if (this.name==""||this.email==""||this.password==""||this.password_confirmation==""||this.mentor==""||this.number==""||this.acc_no==""||this.acc_name==""||this.bank_name==""||this.addr==""||this.city==""||this.state==""||this.mode_id=="")
+		if (this.name==""||this.email==""||this.password==""||this.password_confirmation==""||this.number==""||this.acc_no==""||this.acc_name==""||this.bank_name==""||this.addr==""||this.city==""||this.state==""||this.mode_id=="")
 			{
 				return alert('All * fields are reqired');
 			}
@@ -366,10 +374,11 @@ submit(){
 			}).then(response => {
 				this.hide();
 				this.busy= false;
-				console.log(response.data);
+				//console.log(response.data);
 				var token = response.data.user.api_token;
 				axios.defaults.headers.common['Authorization'] = 'Bearer '+token;
 				appSettings.setNumber("start", new Date().getTime());
+				appSettings.setString("email", this.email);
 				this.$navigateTo(E_Home,{
 				clearHistory:true,
 				//backstackVisible:false,
@@ -387,6 +396,10 @@ submit(){
 
 },
 reg(){
+
+	if (this.mentor == "") {
+		this.mentor = "08172303502";
+	}
 	var session = bghttp.session("image-upload");
 	var request = {  
 		url: "https://empower.honeypays.com.ng/register",
@@ -426,9 +439,10 @@ reg(){
 	logEvent(e){
 	console.log(e.eventName);
 	if (e.eventName=='responded') {
-		var res = e.data;
+		var res = JSON.parse(e.data);
 		console.log('server response is:' + res);
 		this.isLoggingIn = true;
+		//this.reset();
 		alert(res.message);
 	}else if(e.eventName=='error'){
 		this.busy = false;
@@ -447,12 +461,16 @@ reg(){
 	
 },
 mounted(){
-
+	if (appSettings.getString("email")) {
+			this.email = appSettings.getString("email");
+		}
+		console.log(appSettings.getString("email"));
 	this.$refs.page.nativeView.class = "page anim-fade-in";
 }
 };
 </script>
 <style scoped>
+
 .form{
 	background: #D9ffffff;
 	border-radius: 10;
@@ -461,6 +479,8 @@ mounted(){
 	padding-right: 30;
 	margin-top: 30;
 	margin-bottom:30;
+	/*padding-bottom: 30;*/
+	vertical-align: middle;
 }
 .input {
 	font-size: 18;
@@ -472,7 +492,7 @@ mounted(){
 	horizontal-align: center;
 	font-size: 25;
 	font-weight: 600;
-	margin-bottom: 70;
+	margin-bottom: 10;
 	text-align: center;
 	color: #000080;
 }

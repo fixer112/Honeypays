@@ -3,7 +3,7 @@
 
             <ActionBar class="action-bar">
               <NavigationButton android.systemIcon="ic_menu_back" @tap="$modal.close" />
-        <Image src="~/images/honey.png" width="200" height="40" />
+        <Label text="Proof" style="text-align: center; font-weight: bold; color: white" />
         <ActionItem @tap="logout"
     ios.systemIcon="9" ios.position="left"
     android.systemIcon="ic_lock_power_off" android.position="actionBar" color="#fff"/>

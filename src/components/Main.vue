@@ -13,6 +13,7 @@ import * as application from "application";
 import m_Login from './mcredit/Login';
 import e_Login from './empower/Login';
 import e_Home from './empower/Home';
+import Land from './LandPage';
 //import Vue from 'nativescript-vue';
 //import {LoadingIndicator} from "nativescript-loading-indicator";
 
@@ -28,7 +29,7 @@ export default {
 			var _this= this;
 		setTimeout(function(){
 			//_this.$router.push('/mcredit/login');
-			_this.$navigateTo(m_Login,{
+			_this.$navigateTo(Land,{
 				clearHistory:true,
 			})
 

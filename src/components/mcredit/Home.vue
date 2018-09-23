@@ -288,6 +288,7 @@
 	import * as app from 'tns-core-modules/application';
 	import { isAndroid } from 'tns-core-modules/platform';
 	import Login from './Login';
+	import Land from '../LandPage';
 
 	export default {
 
@@ -385,7 +386,7 @@ axios.post('https://mcredit.honeypays.com.ng/logout')
 	this.hide();
 	appSettings.setNumber("start", 0);
 	console.log('logged out');
-		this.$navigateTo(Login,{
+		this.$navigateTo(Land,{
 		clearHistory:true,
 		//backstackVisible:false,
 	});

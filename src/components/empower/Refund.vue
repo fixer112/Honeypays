@@ -3,7 +3,7 @@
 
     <ActionBar class="action-bar">
       <NavigationButton icon="res://baseline_menu_white_24" @tap="drawerTap"/>
-      <Label text="Contact" style="text-align: center; font-weight: bold; color: white" />
+      <Label text="Refund" style="text-align: center; font-weight: bold; color: white" />
       <ActionItem @tap="logout"
       ios.systemIcon="9" ios.position="left"
       android.systemIcon="ic_lock_power_off" android.position="actionBar" color="#fff"/>
@@ -53,14 +53,14 @@
 
             <StackLayout class="hr-light"></StackLayout>
 
-            <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-active" title="Contact">
+            <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Contact" @tap="onNavigationItemTap('contact')">
               <Image src="~/icons/contact.png" class="sidedrawer-icon"/>
               <Label row="0" col="1" text="Contact" class="m-l-20 sidedrawer-item" />
             </GridLayout>
 
             <StackLayout class="hr-light"></StackLayout>
 
-            <GridLayout columns="auto, *" class="sidedrawer-list-item" title="Refund" @tap="onNavigationItemTap('refund')">
+            <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-active" title="Refund">
               <Image src="~/icons/refund.png" class="sidedrawer-icon"/>
               <Label row="0" col="1" text="Refund" class="m-l-20 sidedrawer-item" />
             </GridLayout>
@@ -134,6 +134,7 @@ export default {
           axios.post('https://empower.honeypays.com.ng/cus/contact',{
             message:this.message,
             subject:this.subject,
+            to:"refund@honeypays.com.ng"
           })
           .then(response => {
             this.hide();

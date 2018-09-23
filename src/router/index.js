@@ -8,6 +8,7 @@ import HelloWorld from '../components/HelloWorld';
 import Counter from '../components/Counter';
 //MCREDIT
 import main from '../components/Main';
+import cal from '../components/News';
 import m_login from '../components/mcredit/Login';
 import m_home from '../components/mcredit/Home';
 import e_home from '../components/empower/Home';
@@ -20,6 +21,13 @@ const router = new VueRouter({
       component: main,
       meta: {
         title: 'Main',
+      },
+    },
+    {
+      path: '/cal',
+      component: cal,
+      meta: {
+        title: 'Calculator',
       },
     },
     {

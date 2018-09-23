@@ -14,15 +14,17 @@
 					<ActivityIndicator color="#8A2BE2" :busy="busy"></ActivityIndicator>
 				</StackLayout> -->
 
-				<StackLayout class="input-field" marginBottom="25">
+				<StackLayout class="input-field" marginBottom="10">
 					<TextField ref="password" class="input" hint="Password" secure="true" returnKeyType="done" fontSize="18" v-model="password" :isEnabled="!busy" paddingTop="10" paddingBottom="10"/>
 					<StackLayout class="hr-light" />
 				</StackLayout>
 
-				<Button text="Log In" @tap="submit" class="btn btn-primary m-t-20" :isEnabled="!busy"/>
+				<Button text="Log In" @tap="submit" class="btn btn-primary m-t-10" :isEnabled="!busy"/>
 				<!-- <Label text="Forgot your password?" class="login-label" @tap="test" /> -->
       			<!-- <StackLayout class="sign-up-label"> -->
-      			<Label text="Tap to swich to Empower" class="login-label bold" @tap="empower" :isEnabled="!busy"/>
+				
+      			<Label text="Tap to swich to Empower" class="login-label bold" @tap="empower" :isEnabled="!busy" marginTop="40"/>
+      			
       			<!-- </StackLayout> -->
 			</StackLayout>
 
@@ -92,6 +94,7 @@ export default {
 			if (this.check_con()) {return}
 			this.show();
 			this.busy= true;
+			//var acc = this.acc_no;
 			axios.post('https://mcredit.honeypays.com.ng/login', {
 				password:this.password,
 				username:this.acc_no,
@@ -101,6 +104,7 @@ export default {
 				var token = response.data.user.api_token;
 				axios.defaults.headers.common['Authorization'] = 'Bearer '+token;
 				appSettings.setNumber("start", new Date().getTime());
+				appSettings.setString("macc", this.acc_no);
 				this.$navigateTo(Home,{
 				clearHistory:true,
 				//backstackVisible:false,
@@ -115,7 +119,10 @@ export default {
 		}
 	},
 	mounted(){
-
+		if (appSettings.getString("macc")) {
+			this.acc_no = appSettings.getString("macc");
+		}
+		console.log(appSettings.getString("macc"));
 		this.$refs.page.nativeView.class = "page anim-fade-in";
 		//console.log(this.$refs.password.nativeView.addClass = 'test');
 		//console.log(this.$refs.password.nativeView.class);
@@ -132,6 +139,7 @@ export default {
 	padding-right: 30;
 	margin-top: 30;
 	margin-bottom:30;
+	vertical-align: middle;
 }
 .input {
   font-size: 18;
@@ -143,7 +151,7 @@ export default {
   horizontal-align: center;
   font-size: 25;
   font-weight: 600;
-  margin-bottom: 70;
+  margin-bottom: 10;
   text-align: center;
   color: #00bfff;
 }

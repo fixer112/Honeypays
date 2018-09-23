@@ -17,6 +17,7 @@ import E_Invest from './components/empower/Invest';
 import E_Cal from './components/empower/Calculator';
 import E_Contact from './components/empower/Contact';
 import E_Referal from './components/empower/Referal';
+import E_Refund from './components/empower/Refund';
 import E_bar from './components/empower/Actionbar';
 import {exit} from 'nativescript-exit';
 import axios from 'axios';
@@ -25,6 +26,7 @@ import { FilterSelect } from 'nativescript-filter-select';
 
 Vue.component('Ebar', E_bar);
 Vue.registerElement('FilterSelect', () => FilterSelect);
+Vue.registerElement('CardView',() => require('nativescript-cardview').CardView);
 Vue.registerElement("FilterableListpicker", () => require("nativescript-filterable-listpicker").FilterableListpicker);
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer);
 
@@ -111,6 +113,9 @@ methods:{
       break;
       case 'cal':
       GO = E_Cal;
+      break;
+      case 'refund':
+      GO = E_Refund;
       break;
     }
 
