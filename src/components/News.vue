@@ -48,6 +48,7 @@ watch:{
 
 },
 created(){
+  if (this.check_con()) {return}
   this.show()
 axios.get('http://honeypays.com.ng/wp-json/wp/v2/posts')
         .then(response => {

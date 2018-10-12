@@ -69,7 +69,7 @@ application.on(application.uncaughtErrorEvent, (args) => {
 var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
 var loader = new LoadingIndicator();
 
-Vue.config.silent = false;
+//Vue.config.silent = false;
 Vue.mixin({
  data() {
     return {

@@ -39,6 +39,7 @@ watch:{
 
 },
 created(){
+  
   this.link = '<b><a href="'+this.link+'">'+this.title+'</a></b>';
   /*this.show()
 axios.get('http://honeypays.com.ng/wp-json/wp/v2/posts/377')

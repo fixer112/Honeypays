@@ -1,7 +1,10 @@
 <template>
   <Page actionBarHidden="true" class="page">
-  <GridLayout rows="*,60">
-<StackLayout style="vertical-align: middle;margin-bottom: 10" row="0">
+  <GridLayout rows="15,*,60">
+  <StackLayout >
+    <Label text="version 1.1.1" style="color: white;font-size: 10" row="0"/>
+  </StackLayout>
+<StackLayout style="vertical-align: middle;margin-bottom: 10" row="1">
   
   <GridLayout columns="*, *, *" rows="100,100" class="content">
     <StackLayout row="0" col="0" class="mar" @tap="news">
@@ -54,7 +57,7 @@
   </GridLayout>
 </StackLayout>
 
-<StackLayout row="1" class="login" @tap="login">
+<StackLayout row="2" class="login" @tap="login">
   <Label text="Sign up or Login" class="button"/>
 </StackLayout>
 </GridLayout>
@@ -68,6 +71,7 @@
   import Legal from './Legal';
   import Service from './Services';
   import About from './About';
+  import News from './News';
 
 export default {
   data () {
@@ -77,7 +81,11 @@ export default {
   },
   methods:{
   news(){
-    alert("Coming Soon");
+    //alert("Coming Soon");
+    if (this.check_con()) {return}
+    this.$navigateTo(News,{
+      //clearHistory:true,
+    })
   },
   login(){
     this.$navigateTo(Login,{
