@@ -29,7 +29,15 @@ task replaceSettings {
                     targetSdkVersion = __targetSdkVersion__
                 }
             }
-        }"""
+        }
+        allprojects {
+    repositories {
+        // The order in which you list these repositories matter.
+        google()
+        jcenter()
+    }
+}
+        """
 
         def settingsJsonContent = settingsJsonFile.getText("UTF-8");
         def settingsMap = jsonSlurper.parseText(settingsJsonContent);

@@ -379,6 +379,10 @@ submit(){
 				axios.defaults.headers.common['Authorization'] = 'Bearer '+token;
 				appSettings.setNumber("start", new Date().getTime());
 				appSettings.setString("email", this.email);
+
+				var email = 'empower_'+this.email.replace('@','%');
+    			this.$firebase.subscribeToTopic(email).then(() => console.log("Subscribed to "+email));
+    			//console.log(email);
 				this.$navigateTo(E_Home,{
 				clearHistory:true,
 				//backstackVisible:false,

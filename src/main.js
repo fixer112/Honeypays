@@ -19,16 +19,97 @@ import E_Contact from './components/empower/Contact';
 import E_Referal from './components/empower/Referal';
 import E_Refund from './components/empower/Refund';
 import E_bar from './components/empower/Actionbar';
+import Notify from './components/Notify';
 import {exit} from 'nativescript-exit';
 import axios from 'axios';
 import { isAndroid } from 'tns-core-modules/platform'
 import { FilterSelect } from 'nativescript-filter-select';
+import firebase from 'nativescript-plugin-firebase';
+import { LocalNotifications } from "nativescript-local-notifications";
+//import { CodePush, SyncStatus } from 'nativescript-code-push';
+import { isIOS } from 'platform';
 
 Vue.component('Ebar', E_bar);
 Vue.registerElement('FilterSelect', () => FilterSelect);
 Vue.registerElement('CardView',() => require('nativescript-cardview').CardView);
 Vue.registerElement("FilterableListpicker", () => require("nativescript-filterable-listpicker").FilterableListpicker);
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer);
+
+//var firebase = require("nativescript-plugin-firebase");
+var localStorage = require( "nativescript-localstorage" );
+if (!appSettings.getNumber("count")) {appSettings.setNumber("count", 0)}
+if (!appSettings.getNumber("unread")) {appSettings.setNumber("unread", 0)}
+console.log('count: '+appSettings.getNumber("count"));
+console.log('unread: '+appSettings.getNumber("unread"));
+
+
+firebase.init({
+  // Optionally pass in properties for database, authentication and cloud messaging,
+  // see their respective docs.
+   showNotifications: false,
+   //showNotificationsWhenInForeground: true
+  
+}).then(
+    function (instance) {
+      console.log("firebase.init done");
+    },
+    function (error) {
+      console.log("firebase.init error: " + error);
+    }
+);
+
+firebase.addOnMessageReceivedCallback(
+    function(message) {
+      var count = appSettings.getNumber('count');
+      var unread = appSettings.getNumber('unread');
+      appSettings.setNumber('count', count+1);
+      appSettings.setNumber('unread', unread+1);
+      //console.log(appSettings.getNumber('count'));
+      message.data.date = new Date();
+      appSettings.setString(count.toString(), JSON.stringify(message));
+
+      //console.log("ID: " + count);
+      console.log("Title: " + message.title);
+      console.log("Body: " + message.body);
+      // if your server passed a custom property called 'foo', then do this:
+      console.log("Data: " + JSON.stringify(message));
+
+      LocalNotifications.schedule([{
+    id: count,
+    title: message.data.title,
+    body: message.data.body
+    
+  }]).then(
+      function() {
+        console.log("Notification scheduled");
+
+      },
+      function(error) {
+        console.log("scheduling error: " + error);
+      }
+  )
+
+    });
+
+LocalNotifications.addOnMessageReceivedCallback(
+      function (notification) {
+      
+        alert({
+  title: notification.title,
+  message: notification.body,
+});
+      }
+  ).then(
+      function() {
+        console.log("Listener added");
+      }
+  )
+firebase.subscribeToTopic("global").then(() => console.log("Subscribed to global"));
+/*if (appSettings.getString("email")) {
+    var email = 'empower_'+appSettings.getString("email");
+    firebase.subscribeToTopic(email).then(() => console.log("Subscribed to "+email));
+    }*/
+Vue.prototype.$firebase = firebase;
 
 var suspend = 0;
 var resume = 0;
@@ -49,7 +130,11 @@ application.on(application.suspendEvent, (args) => {
 });
 
 application.on(application.resumeEvent, (args) => {
-
+  /*const syncKey = '3g5snZMZnz5eVdmXm6ZDgUvHGV2y11939548-490b-43d7-a9e4-de386f904956';
+  if (isAndroid) {
+    CodePush.sync({ deploymentKey: syncKey });
+  }*/
+          
         resume = new Date().getTime();
         if (suspend > 0 && (resume-suspend)/(1000*60) > 10) {
           appSettings.setString("token", '');

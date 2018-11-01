@@ -39,6 +39,7 @@ const config = (platform, launchArgs) => {
   });
 
   return {
+    //alias: { 'vue$': 'nativescript-vue' },
 
     target: NativeScriptVueTarget,
 

@@ -1,9 +1,22 @@
 <template>
-  <Page actionBarHidden="true" class="page">
-  <GridLayout rows="15,*,60">
-  <StackLayout >
-    <Label text="version 1.1.1" style="color: white;font-size: 10" row="0"/>
-  </StackLayout>
+  <Page  actionBarHidden="true" class="page">
+  <GridLayout rows="50,*,60">
+  <!-- <StackLayout row="0">
+    <Label text="version 1.1.2" style="color: white;font-size: 10"/>
+  </StackLayout> -->
+<DockLayout stretchLastChild="false" row="0">
+  <Label dock="left" text="version 1.1.2" style="color: white;font-size: 10"></Label>
+  <StackLayout dock="right" @tap="notify">
+    
+  
+  <GridLayout rows="auto" columns="*,*" style="width: 70" @tap="notify">
+  <Image row="0" col="0" src="~/icons/land/mail.png" style="margin-top: 5;height: 20;width: 20"/>
+  <Label row="0" col="1" :text="unread" v-if="unread > 0" style="color: white;font-size:8 ;background-color: red;height: 12;width: 12;border-radius: 20;margin-right: 40;text-align: center;"></Label>
+  </GridLayout>
+  <Label text="Notifications" style="color: white;font-size: 8;text-align: center;margin-right: 28"></Label>
+</StackLayout>
+</DockLayout>
+
 <StackLayout style="vertical-align: middle;margin-bottom: 10" row="1">
   
   <GridLayout columns="*, *, *" rows="100,100" class="content">
@@ -60,6 +73,7 @@
 <StackLayout row="2" class="login" @tap="login">
   <Label text="Sign up or Login" class="button"/>
 </StackLayout>
+
 </GridLayout>
 </Page>
 </template>
@@ -72,14 +86,23 @@
   import Service from './Services';
   import About from './About';
   import News from './News';
+  import Notify from './Notify';
+  import * as appSettings from 'tns-core-modules/application-settings';
 
 export default {
   data () {
     return {
-
+      
+      unread : appSettings.getNumber('unread'),
     };
   },
   methods:{
+  notify(){
+    this.$navigateTo(Notify,{
+      //clearHistory:true,
+    });
+    
+  },
   news(){
     //alert("Coming Soon");
     if (this.check_con()) {return}
@@ -117,13 +140,19 @@ export default {
       //clearHistory:true,
     })
   },
+  
 },
 watch:{
+  
 
 },
 created(){
+  var _this = this;
+  setInterval(function(){ _this.unread = appSettings.getNumber('unread'); }, 3000);
+//this.page();
 
-
+//console.log('loaded '+args);
+//this.unread = unread;
   }
 };
 </script>

@@ -87,7 +87,7 @@ export default {
 },
 		
 		submit(){
-		
+			
 			if (this.username =='' || this.password =='') {
 				return alert('All fields are required');
 			}
@@ -105,6 +105,8 @@ export default {
 				axios.defaults.headers.common['Authorization'] = 'Bearer '+token;
 				appSettings.setNumber("start", new Date().getTime());
 				appSettings.setString("macc", this.acc_no);
+				var acc_no = 'mcredit_'+this.acc_no;
+    			this.$firebase.subscribeToTopic(acc_no).then(() => console.log("Subscribed to "+acc_no));
 				this.$navigateTo(Home,{
 				clearHistory:true,
 				//backstackVisible:false,
@@ -124,6 +126,8 @@ export default {
 		}
 		console.log(appSettings.getString("macc"));
 		this.$refs.page.nativeView.class = "page anim-fade-in";
+		var acc_no = 'mcredit_'+this.acc_no;
+    	this.$firebase.subscribeToTopic('mcredit_1234567').then(() => console.log("Subscribed to 1234567"));
 		//console.log(this.$refs.password.nativeView.addClass = 'test');
 		//console.log(this.$refs.password.nativeView.class);
 	}
