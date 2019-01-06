@@ -36,7 +36,7 @@ Vue.registerElement("FilterableListpicker", () => require("nativescript-filterab
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer);
 
 //var firebase = require("nativescript-plugin-firebase");
-var localStorage = require( "nativescript-localstorage" );
+//var localStorage = require( "nativescript-localstorage" );
 if (!appSettings.getNumber("count")) {appSettings.setNumber("count", 0)}
 if (!appSettings.getNumber("unread")) {appSettings.setNumber("unread", 0)}
 console.log('count: '+appSettings.getNumber("count"));
@@ -117,6 +117,7 @@ var resume = 0;
 application.on(application.launchEvent, (args) => {
     appSettings.setNumber("start", 0);
     appSettings.setString("default", 'mcredit');
+    //axios.defaults.headers.common['version'] = '1.1.3';
 });
 
 application.on(application.exitEvent, (args) => {
@@ -261,6 +262,7 @@ danger(title, error){
         	okButtonText: "OK",
         };
         alert(alertOptions);
+        //console.log(this.err);
         this.err="";
 },
 

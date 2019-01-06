@@ -2,10 +2,10 @@
   <Page  actionBarHidden="true" class="page">
   <GridLayout rows="50,*,60">
   <!-- <StackLayout row="0">
-    <Label text="version 1.1.2" style="color: white;font-size: 10"/>
+    <Label text="version 1.1.3" style="color: white;font-size: 10"/>
   </StackLayout> -->
 <DockLayout stretchLastChild="false" row="0">
-  <Label dock="left" text="version 1.1.2" style="color: white;font-size: 10"></Label>
+  <Label dock="left" text="version 1.1.3" style="color: white;font-size: 10"></Label>
   <StackLayout dock="right" @tap="notify">
     
   

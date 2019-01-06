@@ -24,7 +24,7 @@ android.systemIcon="ic_lock_power_off" android.position="actionBar" color="#fff"
 
             <StackLayout class="input-field" marginBottom="25">
               <Label text="*Tenure" style="text-align: left;color:#000080" />
-              <TextField class="input" :text="tenure" editable="false" @tap="select()" fontSize="18"/>
+              <TextField class="input" :text="tenure + ' Months'" editable="false" @tap="select()" fontSize="18"/>
               <StackLayout class="hr-light" />
             </StackLayout>
 
@@ -79,13 +79,13 @@ export default {
       new_date:"",
       min:"",
       amount:"5000",
-      tenure:"30",
+      tenure:"5",
       date:"",
       tenure_list:[
-      {"title": "30"},
-      {"title": "90"},
-      {"title": "180"},
-      {"title": "360"},
+      {"title": "5"},
+      {"title": "9"},
+      {"title": "18"},
+      {"title": "36"},
       ],
 
     };
@@ -120,6 +120,7 @@ cal(){
     formData.append('amount', this.amount);
     formData.append('rate', this.tenure);
     formData.append('date', this.new_date);
+    formData.append('version', '1.1.3');
     this.show();
     this.busy= true;
     axios.post('https://honeypays.com.ng/calculator.php',formData,{
