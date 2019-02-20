@@ -371,7 +371,7 @@ submit(){
 			axios.post('https://empower.honeypays.com.ng/login', {
 				email:this.email,
 				password:this.password,
-				version:"1.1.3",
+				version:"1.1.6",
 			}).then(response => {
 				this.hide();
 				this.busy= false;

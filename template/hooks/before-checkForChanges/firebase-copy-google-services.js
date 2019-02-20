@@ -28,7 +28,7 @@ module.exports = function($logger, $projectData, hookArgs) {
         var platform = hookArgs['checkForChangesOpts']['platform'].toLowerCase(); // ios | android
         var platformsDir = hookArgs['checkForChangesOpts']['projectData']['platformsDir'];
         var appResourcesDirectoryPath = hookArgs['checkForChangesOpts']['projectData']['appResourcesDirectoryPath'];
-        var forcePrepare = true; // whether to force NS to run prepare
+        var forcePrepare = true; // whether to force NS to run prepare, defaults to true
         var npfInfoPath = path.join(platformsDir, platform, ".pluginfirebaseinfo");
         var nsPrepareInfoPath = path.join(platformsDir, platform, ".nsprepareinfo");
         var copyPlistOpts = { platform, appResourcesDirectoryPath, buildType, $logger }
@@ -48,10 +48,10 @@ module.exports = function($logger, $projectData, hookArgs) {
             $logger.info('nativescript-plugin-firebase: running release build or change in environment detected, forcing prepare!');
 
             if (fs.existsSync(npfInfoPath)) { fs.unlinkSync(npfInfoPath); }
-            fs.unlinkSync(nsPrepareInfoPath);
+            if (fs.existsSync(nsPrepareInfoPath)) { fs.unlinkSync(nsPrepareInfoPath); }
 
             if (copyPlist(copyPlistOpts)) { resolve(); } else { reject(); }
-        } else { if (copyPlist(copyPlistOpts)) { resolve(); } else { reject(); } }
+        } else { resolve(); }
     });
 };
 
@@ -77,8 +77,7 @@ var copyPlist = function(copyPlistOpts) {
                 return true;
             }
         } else if (!fs.existsSync(destinationGooglePlist)) { // single GoogleService-Info.plist modus but missing
-            copyPlistOpts.$logger.warn("nativescript-plugin-firebase: " + destinationGooglePlist + " does not exist. Please follow the installation instructions from the documentation");
-            return false;
+            return true; // this is a push-only project, so this is allowed
         } else {
             return true; // single GoogleService-Info.plist modus
         }

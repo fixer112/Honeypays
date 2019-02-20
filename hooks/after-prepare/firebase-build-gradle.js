@@ -1,4 +1,3 @@
-
 var path = require("path");
 var fs = require("fs");
 
@@ -14,19 +13,27 @@ module.exports = function($logger, $projectData) {
                 let repositoriesNode = buildGradleContent.indexOf("repositories", 0);
                 if (repositoriesNode > -1) {
                     repositoriesNode = buildGradleContent.indexOf("}", repositoriesNode);
-                    buildGradleContent = buildGradleContent.substr(0, repositoriesNode - 1) + '	    maven { url "https://maven.fabric.io/public" }\n' + buildGradleContent.substr(repositoriesNode - 1);
+                    buildGradleContent = buildGradleContent.substr(0, repositoriesNode - 1) + '\t\tmaven { url "https://maven.fabric.io/public" }\n\t\tmaven { url "https://dl.bintray.com/android/android-tools" }\n' + buildGradleContent.substr(repositoriesNode - 1);
                 }
 
                 let dependenciesNode = buildGradleContent.indexOf("dependencies", 0);
                 if (dependenciesNode > -1) {
                     dependenciesNode = buildGradleContent.indexOf("}", dependenciesNode);
-                    buildGradleContent = buildGradleContent.substr(0, dependenciesNode - 1) + '	    classpath "io.fabric.tools:gradle:1.25.4"\n' + buildGradleContent.substr(dependenciesNode - 1);
+                    // see https://docs.fabric.io/android/changelog.html
+                    buildGradleContent = buildGradleContent.substr(0, dependenciesNode - 1) + '	    classpath "io.fabric.tools:gradle:1.26.1"\n' + buildGradleContent.substr(dependenciesNode - 1);
+                }
+
+            } else if (buildGradleContent.indexOf("https://dl.bintray.com/android/android-tools") === -1) {
+                let repositoriesNode = buildGradleContent.indexOf("repositories", 0);
+                if (repositoriesNode > -1) {
+                    repositoriesNode = buildGradleContent.indexOf("}", repositoriesNode);
+                    buildGradleContent = buildGradleContent.substr(0, repositoriesNode - 1) + '\t\tmaven { url "https://dl.bintray.com/android/android-tools" }\n' + buildGradleContent.substr(repositoriesNode - 1);
                 }
             }
 
             let gradlePattern = /classpath ('|")com\.android\.tools\.build:gradle:\d+\.\d+\.\d+('|")/;
             let googleServicesPattern = /classpath ('|")com\.google\.gms:google-services:\d+\.\d+\.\d+('|")/;
-            let latestGoogleServicesPlugin = 'classpath "com.google.gms:google-services:4.1.0"';
+            let latestGoogleServicesPlugin = 'classpath "com.google.gms:google-services:4.2.0"';
             if (googleServicesPattern.test(buildGradleContent)) {
                 buildGradleContent = buildGradleContent.replace(googleServicesPattern, latestGoogleServicesPlugin);
             } else {
@@ -34,7 +41,9 @@ module.exports = function($logger, $projectData) {
                     return match + '\n        ' + latestGoogleServicesPlugin;
                 });
             }
-    
+
+            buildGradleContent = buildGradleContent.replace("com.android.tools.build:gradle:3.2.0", "com.android.tools.build:gradle:3.2.1");
+
             fs.writeFileSync(projectBuildGradlePath, buildGradleContent);
         }
 
@@ -48,14 +57,26 @@ task copyMetadata {
   doLast {
     copy {
         from "$projectDir/src/main/assets/metadata"
-        def toDir = project.hasProperty("release") ? "release" : "debug";
-        if (new File("$projectDir/build/intermediates/assets").listFiles() != null) {
+        def toDir = project.hasProperty("release") ? "release" : "debug"
+        def toAssetsDir = "assets"
+
+        if (new File("$projectDir/build/intermediates/merged_assets").listFiles() != null) {
+          toAssetsDir = "merged_assets"
+          toDir = new File("$projectDir/build/intermediates/merged_assets").listFiles()[0].name
+          if (toDir == 'debug') {
+            toDir += "/mergeDebugAssets"
+          } else {
+            toDir += "/mergeReleaseAssets"
+          }
+          toDir += "/out"
+        } else if (new File("$projectDir/build/intermediates/assets").listFiles() != null) {
           toDir = new File("$projectDir/build/intermediates/assets").listFiles()[0].name
           if (toDir != 'debug' && toDir != 'release') {
             toDir += "/release"
           }
         }
-        into "$projectDir/build/intermediates/assets/" + toDir + "/metadata"
+
+        into "$projectDir/build/intermediates/" + toAssetsDir + "/" + toDir + "/metadata"
     }
   }
 }`;

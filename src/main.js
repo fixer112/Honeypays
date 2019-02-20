@@ -24,6 +24,7 @@ import {exit} from 'nativescript-exit';
 import axios from 'axios';
 import { isAndroid } from 'tns-core-modules/platform'
 import { FilterSelect } from 'nativescript-filter-select';
+//import { Video } from 'nativescript-videoplayer';
 import firebase from 'nativescript-plugin-firebase';
 import { LocalNotifications } from "nativescript-local-notifications";
 //import { CodePush, SyncStatus } from 'nativescript-code-push';
@@ -31,9 +32,12 @@ import { isIOS } from 'platform';
 
 Vue.component('Ebar', E_bar);
 Vue.registerElement('FilterSelect', () => FilterSelect);
+//Vue.registerElement('VideoPlayer', () => require('nativescript-videoplayer').Video);
 Vue.registerElement('CardView',() => require('nativescript-cardview').CardView);
 Vue.registerElement("FilterableListpicker", () => require("nativescript-filterable-listpicker").FilterableListpicker);
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer);
+Vue.registerElement('YoutubePlayer', () => require('nativescript-youtubeplayer').YoutubePlayer);
+//Vue.registerElement("exoplayer", () => require("nativescript-exoplayer").Video);
 
 //var firebase = require("nativescript-plugin-firebase");
 //var localStorage = require( "nativescript-localstorage" );
@@ -155,7 +159,7 @@ application.on(application.uncaughtErrorEvent, (args) => {
 var LoadingIndicator = require("nativescript-loading-indicator").LoadingIndicator;
 var loader = new LoadingIndicator();
 
-//Vue.config.silent = false;
+Vue.config.silent = false;
 Vue.mixin({
  data() {
     return {

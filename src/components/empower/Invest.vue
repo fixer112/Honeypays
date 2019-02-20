@@ -138,10 +138,10 @@ export default {
       amount:"",
       tenure:"",
       tenure_list:[
-        {"title": "30"},
-        {"title": "90"},
-        {"title": "180"},
-        {"title": "360"},
+        {"title": "5"},
+        {"title": "9"},
+        {"title": "18"},
+        {"title": "36"},
       ],
       img:"",
 

@@ -5,7 +5,7 @@
     <Label text="version 1.1.3" style="color: white;font-size: 10"/>
   </StackLayout> -->
 <DockLayout stretchLastChild="false" row="0">
-  <Label dock="left" text="version 1.1.3" style="color: white;font-size: 10"></Label>
+  <Label dock="left" text="version 1.2.0" style="color: white;font-size: 10"></Label>
   <StackLayout dock="right" @tap="notify">
     
   
@@ -19,7 +19,7 @@
 
 <StackLayout style="vertical-align: middle;margin-bottom: 10" row="1">
   
-  <GridLayout columns="*, *, *" rows="100,100" class="content">
+  <GridLayout columns="*, *, *" rows="100,100,100" class="content">
     <StackLayout row="0" col="0" class="mar" @tap="news">
     <StackLayout class="circle">
       <Image class="img" src="~/icons/land/news.png"/>
@@ -44,7 +44,7 @@
 
 
 
-    <StackLayout row="1" col="0"class="mar" @tap="legal">
+    <StackLayout row="1" col="0" class="mar" @tap="legal">
     <StackLayout class="circle">
       <Image class="img" src="~/icons/land/law.png"/>
       <Label text="Legal" class="text"/>
@@ -66,8 +66,15 @@
     </StackLayout>
     </StackLayout>
 
+    <StackLayout row="2" col="1" class="mar" @tap="video">
+    <StackLayout class="circle">
+      <Image class="img" src="~/icons/land/video.png"/>
+      <Label text="Videos" class="text"/>
+    </StackLayout>
+    </StackLayout>
 
   </GridLayout>
+
 </StackLayout>
 
 <StackLayout row="2" class="login" @tap="login">
@@ -87,6 +94,7 @@
   import About from './About';
   import News from './News';
   import Notify from './Notify';
+  import Video from './Video';
   import * as appSettings from 'tns-core-modules/application-settings';
 
 export default {
@@ -138,6 +146,11 @@ export default {
   about(){
     this.$navigateTo(About,{
       //clearHistory:true,
+    })
+  },
+   video(){
+    this.$navigateTo(Video,{
+      
     })
   },
   
@@ -195,6 +208,10 @@ created(){
   /*background-color: blue;*/
   width: 20;
   height: 20;
+}
+.img2{
+  width: 50;
+  height: 50;
 }
 .login{
   background-color: #000080;
